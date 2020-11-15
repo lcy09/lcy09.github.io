@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>2020.11.15考试总结 | Lcy&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://lcy09.github.io/favicon.ico?v=1605450081164">
+<link rel="stylesheet" href="https://lcy09.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1.铁塔
+题面
+solution
+发现数据是Θ(n2)\Theta(n^2)Θ(n2)能过的，而观察可得贪心不对，所以进行dp.设fif_ifi​为到第iii个元素最多能分成几段，gig_igi​为到第iii个元素的最后一段的最小权值和，g..." />
+    <meta name="keywords" content="图论,枚举，暴力,线段树,考试总结,动态规划" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://lcy09.github.io">
+        <img src="https://lcy09.github.io/images/avatar.png?v=1605450081164" class="site-logo">
+        <h1 class="site-title">Lcy&#39;s Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lcy09.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">2020.11.15考试总结</h2>
+            <div class="post-date">2020-11-15</div>
+            
+              <div class="feature-container" style="background-image: url('https://lcy09.github.io/post-images/20201115-summary.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="1铁塔">1.铁塔</h3>
+<p><a href="https://www.luogu.com.cn/problem/U140895">题面</a></p>
+<p><strong>solution</strong></p>
+<p>发现数据是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Θ</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">\Theta(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">Θ</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>能过的，而观察可得贪心不对，所以进行dp.设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为到第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>个元素最多能分成几段，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">g_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为到第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>个元素的最后一段的最小权值和，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span>数组初值赋正无穷，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>g</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g_0=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>,然后预处理出数组的前缀和暴力遍历前面的所有状态更新即可。</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long
+using namespace std;
+const int MAXN=5005;
+inline int read()
+{
+    int weight=0,symbol=1;
+    char in=getchar();
+    while(!isdigit(in))
+    {
+        if(in=='-') symbol=-1;
+        in=getchar();
+    }
+    while(isdigit(in))
+    {
+        weight=weight*10+in-'0';
+        in=getchar();
+    }
+    return symbol*weight;
+}
+inline void write(int x)
+{
+    short s[20],len=0;
+    if(x&lt;0) putchar('-'),x=-x;
+    do s[++len]=x%10,x/=10;while(x);
+    while(len) putchar('0'|s[len--]);
+    putchar(10);
+}
+
+int n;
+int a[MAXN],sum[MAXN];
+int f[MAXN],g[MAXN];
+
+signed main()
+{
+    n=read();
+    for(int i=1;i&lt;=n;i++)
+        a[i]=read(),sum[i]=sum[i-1]+a[i];
+
+    memset(g,0x3f,sizeof(g));
+    g[0]=0;
+    for(int i=1;i&lt;=n;i++)
+        for(int j=0;j&lt;i;j++)
+        {
+            if(sum[i]-sum[j]&lt;g[j]) continue;//判断是否能更新
+            f[i]=max(f[i],f[j]+1);
+            g[i]=min(g[i],sum[i]-sum[j]);
+        }
+    
+    write(n-f[n]);
+
+    return 0;
+}
+</code></pre>
+<h3 id="2工作计划">2.工作计划</h3>
+<p><a href="https://www.luogu.com.cn/problem/U140902">题面</a></p>
+<p><strong>solution</strong></p>
+<p>因为工作是随便做的，所以要方便地查询在某个能力值以下最划算的工作，这里用到的是线段树。</p>
+<p>发现贪心好像不是很对劲，于是开始考虑dp.</p>
+<p>一开始想着做工作是不是和当前的能力值相关，但是发现这样写过于麻烦，然后发现可能在学了某一门课程之后不学了就很优，所以可以在状态中设计时间，即设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>最多做了多少份工作（这里根据个人习惯时间从1开始）。然后对于每门课程按开始时间进行排序，每个课程直接暴力更新所有学完的时间的答案即可。</p>
+<p>不要忘记初始是要赋值的。</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define int long long
+#define ls num&lt;&lt;1
+#define rs num&lt;&lt;1|1
+using namespace std;
+const int MAXS=105;
+const int MAXV=10005;
+const int inf=0x3f3f3f3f;
+inline int read()
+{
+    int weight=0,symbol=1;
+    char in=getchar();
+    while(!isdigit(in))
+    {
+        if(in=='-') symbol=-1;
+        in=getchar();
+    }
+    while(isdigit(in))
+    {
+        weight=weight*10+in-'0';
+        in=getchar();
+    }
+    return symbol*weight;
+}
+inline void write(int x)
+{
+    short s[20],len=0;
+    if(x&lt;0) putchar('-'),x=-x;
+    do s[++len]=x%10,x/=10;while(x);
+    while(len) putchar('0'|s[len--]);
+    putchar(10);
+}
+inline void Max(int &amp;x,int y) {if(y&gt;x) x=y;}
+inline void Min(int &amp;x,int y) {if(y&lt;x) x=y;}
+
+int T,s,n;
+struct Lesson
+{
+    int bpos,epos;
+    int wb;
+}les[MAXS];
+bool cmp(Lesson a,Lesson b) {return a.bpos&lt;b.bpos;}
+
+struct SegmentTree
+{
+    int left,right;
+    int Mn;
+}tree[MAXV&lt;&lt;2];
+void pushup(int num) {tree[num].Mn=min(tree[ls].Mn,tree[rs].Mn);}
+void build(int num,int l,int r)
+{
+    tree[num].left=l,tree[num].right=r;
+    if(l==r)
+    {
+        tree[num].Mn=inf;
+        return ;
+    }
+    int mid=(l+r)&gt;&gt;1;
+    build(ls,l,mid),build(rs,mid+1,r);
+    pushup(num);
+}
+void change(int num,int pos,int val)
+{
+    if(tree[num].left==tree[num].right)
+    {
+        Min(tree[num].Mn,val);
+        return ;
+    }
+    int mid=(tree[num].left+tree[num].right)&gt;&gt;1;
+    if(pos&lt;=mid) change(ls,pos,val);
+    else change(rs,pos,val);
+    pushup(num);
+}
+int query(int num,int l,int r)
+{
+    if(tree[num].left==l&amp;&amp;tree[num].right==r)
+        return tree[num].Mn;
+    int mid=(tree[num].left+tree[num].right)&gt;&gt;1;
+    if(r&lt;=mid) return query(ls,l,r);
+    else if(l&gt;mid) return query(rs,l,r);
+    else return min(query(ls,l,mid),query(rs,mid+1,r));
+}
+
+int f[MAXV];
+
+signed main()
+{
+    T=read(),s=read(),n=read();
+    for(int i=1;i&lt;=s;i++)
+    {
+        les[i].bpos=read()+1;
+        les[i].epos=les[i].bpos+read()-1;
+        les[i].wb=read();
+    }
+    sort(les+1,les+s+1,cmp);//对课程排序
+    build(1,0,10000);//线段树维护工作
+    for(int i=1;i&lt;=n;i++)
+    {
+        int c=read(),d=read();
+        change(1,c,d);
+    }
+
+    int tmp=query(1,0,1);
+    for(int i=1;i&lt;=T;i++) f[i]=i/tmp;//赋初值
+    for(int i=1;i&lt;=s;i++)
+    {
+        if(les[i].epos&gt;=T) continue;//没啥用的超时课程
+        tmp=query(1,0,les[i].wb);//找能干的最优的工作
+        for(int j=les[i].epos+1;j&lt;=T;j++)//直接暴力更新
+            Max(f[j],f[les[i].bpos-1]+(j-les[i].epos)/tmp);
+    }
+
+    write(f[T]);
+    
+    return 0;
+}
+</code></pre>
+<h3 id="3树洞">3.树洞</h3>
+<p><a href="https://www.luogu.com.cn/problem/U140903">题面</a></p>
+<p><strong>solution</strong></p>
+<p>发现这个图很有特点，只有可能是一条链、一个环、一个环加从一个点出来的多个链、一条链加一条支链。</p>
+<p>正解是二分答案，然后枚举距离那个特殊点最近的树洞，把该树洞能覆盖的区域全部去掉，图就变成了很多个链，接着直接遍历+更新答案即可。取多次枚举的最小用树洞数与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>相比较，来确定二分区间该怎么移动。</p>
+<p>但是我写的时候直接暴力枚举每个点是第一个出现的树洞水过去了……</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN=2005;
+const int MAXM=4000005;
+inline int read()
+{
+    int weight=0,symbol=1;
+    char in=getchar();
+    while(!isdigit(in))
+    {
+        if(in=='-') symbol=-1;
+        in=getchar();
+    }
+    while(isdigit(in))
+    {
+        weight=weight*10+in-'0';
+        in=getchar();
+    }
+    return symbol*weight;
+}
+inline void write(int x)
+{
+    short s[20],len=0;
+    if(x&lt;0) putchar('-'),x=-x;
+    do s[++len]=x%10,x/=10;while(x);
+    while(len) putchar('0'|s[len--]);
+    putchar(10);
+}
+inline void Min(int &amp;x,int y) {if(y&lt;x) x=y;}
+
+int n,m,k;
+
+int root;
+int head[MAXN];
+struct EDGE
+{
+    int from,to;
+    int next;
+}edge[MAXM&lt;&lt;1];
+int edge_cnt=1;
+void add_edge(int fr,int to)
+{
+    edge[++edge_cnt].from=fr;
+    edge[edge_cnt].to=to;
+    edge[edge_cnt].next=head[fr];
+    head[fr]=edge_cnt;
+}
+int du[MAXN];
+
+bool vis[MAXN];
+int dis[MAXN];
+void mark(int x,int lim)//标记枚举出来的树洞能覆盖的点
+{
+    vis[x]=1;
+    if(dis[x]==lim) return ;
+    for(int i=head[x];i;i=edge[i].next)
+    {
+        int y=edge[i].to;
+        Min(dis[y],dis[x]+1);
+        if(vis[y]) continue;
+        mark(y,lim);
+    }
+}
+int get_sz(int x)//找出每个链的大小
+{
+    int sz=1;
+    vis[x]=1;
+    for(int i=head[x];i;i=edge[i].next)
+    {
+        int y=edge[i].to;
+        if(vis[y]) continue;
+        sz+=get_sz(y);
+    }
+    return sz;
+}
+bool check(int lim)
+{
+    for(int i=1;i&lt;=n;i++)//暴力不已……
+    {
+        memset(dis,0x3f,sizeof(dis));
+        memset(vis,0,sizeof(vis));
+        dis[i]=0,vis[i]=1;
+        mark(i,lim);
+        int res=1;
+        for(int j=1;j&lt;=n;j++)
+        {
+            if(vis[j]) continue;
+            res+=((get_sz(j)-1)/(lim&lt;&lt;1|1)+1);
+        }
+        if(res&lt;=k) return 1;
+    }
+    return 0;
+}
+
+int ans;
+
+int main()
+{
+    n=read(),m=read(),k=read();
+    for(int i=1;i&lt;=m;i++)
+    {
+        int u=read(),v=read();
+        add_edge(u,v),add_edge(v,u);
+        if(++du[u]&gt;2) root=u;
+        if(++du[v]&gt;2) root=v;
+    }
+
+    if(!root)//特判
+    {
+        write(((n-1)/k+1)&gt;&gt;1);
+        return 0;
+    }
+    int le=0,ri=n;
+    while(le&lt;=ri)
+    {
+        int mid=(le+ri)&gt;&gt;1;
+        if(check(mid)) ans=mid,ri=mid-1;
+        else le=mid+1;
+    }
+
+    write(ans);
+
+    return 0;
+}
+</code></pre>
+<p>总的来说这次考试不是很难，本人考场上3个小时A掉了T1T2，T3也拿到了80分。不知道是这次运气好还是真的能力有所提高？总之这个成绩还是很令人振奋的，继续加油啊！</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://lcy09.github.io/tag/4LxYno9Wi/" class="tag">
+                    图论
+                  </a>
+                
+                  <a href="https://lcy09.github.io/tag/cYiU-ugMw/" class="tag">
+                    枚举，暴力
+                  </a>
+                
+                  <a href="https://lcy09.github.io/tag/MH9LxmMQcU/" class="tag">
+                    线段树
+                  </a>
+                
+                  <a href="https://lcy09.github.io/tag/5NgFH_-G65/" class="tag">
+                    考试总结
+                  </a>
+                
+                  <a href="https://lcy09.github.io/tag/6pqZtAvc2f/" class="tag">
+                    动态规划
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lcy09.github.io/post/20201114-summary/">
+                  <h3 class="post-title">
+                    2020.11.14考试总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '1ce5590dce2b53d3bc3d',
+        clientSecret: '6918a8432b7c57ba71ebcc653dae676984eab223',
+        repo: 'lcy09.github.io',
+        owner: 'lcy09',
+        admin: ['lcy09'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
