@@ -1,180 +1,142 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
-<title>标签列表 | Lcy&#39;s Blog</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lcy09.github.io/favicon.ico?v=1605509371678">
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lcy&#39;s Blog</title>
+<link rel="shortcut icon" href="https://lcy09.github.io/favicon.ico?v=1606286055106">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://lcy09.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Lcy&#39;s Blog - Atom Feed" href="https://lcy09.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-
-
-    <meta name="description" content="温故而知新">
+  <meta name="description" content="温故而知新" />
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://lcy09.github.io">
-        <img src="https://lcy09.github.io/images/avatar.png?v=1605509371678" class="site-logo">
-        <h1 class="site-title">Lcy&#39;s Blog</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
-    </div>
-    <div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://lcy09.github.io">
+  <img class="avatar" src="https://lcy09.github.io/images/avatar.png?v=1606286055106" alt="">
+  </a>
+  <h1 class="site-title">
+    Lcy&#39;s Blog
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
       
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
+        <a href="/" class="menu">
+          首页
+        </a>
       
-        
-          <a href="/archives" class="site-nav">
-            归档
-          </a>
-        
+    
       
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
+        <a href="/archives" class="menu">
+          归档
+        </a>
       
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
+    
       
-    </div>
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
+  <div class="social-container">
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
+    
       
-        
-      
-    </div>
-    <div class="site-description">
-      温故而知新
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lcy09.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
+    
   </div>
 </div>
 
 
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
-            
-              <a class="tag" href="https://lcy09.github.io/tag/Si2FVyiSc/">题解</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/MH9LxmMQcU/">线段树</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/jo2PipPVdr/">数学</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/4LxYno9Wi/">图论</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/cYiU-ugMw/">枚举，暴力</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/5NgFH_-G65/">考试总结</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/6pqZtAvc2f/">动态规划</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/2-vfG50d7Q/">最小生成树</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/BfzEJyUYva/">Trie树</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/wz1Mu__x9o/">倍增，ST表</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/_YUJo5rDxv/">构造</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/S6o2TQnFQ/">二分查找</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/BAl8r1dqnB/">位运算，按位</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/u68J1Hm2-R/">贪心</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/zO-LjE2SYv/">状压动规</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/00yjuhGlh/">概率，统计</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/54B2eME2bX/">区间动规</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/GqLtykr45I/">数论</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/_53uAH9BUd/">树状数组</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/R8Xfyc7kA/">同余方程</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/raMC26zQCw/">树形动规</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/I8AxsznJy2/">数位动规</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/d_YCJg-6pN/">BFS</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/XH728l-Rt/">并查集</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/_7x8kHxiEV/">二分</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/hkTX1DM2kb/">哈希表</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/tmjEAqAqin/">主席树</a>
-            
-              <a class="tag" href="https://lcy09.github.io/tag/MI93-IQMvE/">差分，前缀和</a>
-            
-          </div>
+        <div class="tags-container">
+          
+            <a class="tag" href="https://lcy09.github.io/tag/Si2FVyiSc/">题解</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/MH9LxmMQcU/">线段树</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/jo2PipPVdr/">数学</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/4LxYno9Wi/">图论</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/cYiU-ugMw/">枚举，暴力</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/5NgFH_-G65/">考试总结</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/6pqZtAvc2f/">动态规划</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/2-vfG50d7Q/">最小生成树</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/BfzEJyUYva/">Trie树</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/wz1Mu__x9o/">倍增，ST表</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/_YUJo5rDxv/">构造</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/S6o2TQnFQ/">二分查找</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/BAl8r1dqnB/">位运算，按位</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/u68J1Hm2-R/">贪心</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/zO-LjE2SYv/">状压动规</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/00yjuhGlh/">概率，统计</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/54B2eME2bX/">区间动规</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/GqLtykr45I/">数论</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/_53uAH9BUd/">树状数组</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/R8Xfyc7kA/">同余方程</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/raMC26zQCw/">树形动规</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/I8AxsznJy2/">数位动规</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/d_YCJg-6pN/">BFS</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/XH728l-Rt/">并查集</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/_7x8kHxiEV/">二分</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/hkTX1DM2kb/">哈希表</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/tmjEAqAqin/">主席树</a>
+          
+            <a class="tag" href="https://lcy09.github.io/tag/MI93-IQMvE/">差分，前缀和</a>
+          
         </div>
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://lcy09.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
       </div>
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script type="application/javascript">
-
-AOS.init();
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad()
-  </script>
-
-
-
-
-
   </body>
 </html>
