@@ -993,10 +993,18 @@ td {
       }
     
       .main {
-        background: #f4fce3;
+        background: #edf2ff;
       }
     
       body {
         background: #d0ebff;
+      }
+    
+      body {
+        color: #1864ab;
+      }
+    
+      a {
+        color: #0b7285;
       }
     
