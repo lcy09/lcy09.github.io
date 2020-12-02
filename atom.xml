@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lcy09.github.io</id>
     <title>Lcy&apos;s Blog</title>
-    <updated>2020-11-30T03:57:31.211Z</updated>
+    <updated>2020-12-02T11:10:37.051Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lcy09.github.io"/>
     <link rel="self" href="https://lcy09.github.io/atom.xml"/>
@@ -10,6 +10,332 @@
     <logo>https://lcy09.github.io/images/avatar.png</logo>
     <icon>https://lcy09.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Lcy&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[2020.12.1 考试总结]]></title>
+        <id>https://lcy09.github.io/post/20201201-summary/</id>
+        <link href="https://lcy09.github.io/post/20201201-summary/">
+        </link>
+        <updated>2020-12-02T11:05:36.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://gitee.com/lcy09/files/raw/master/PDFs/20201202.pdf">题面</a></p>
+<h3 id="1树树">1.树树</h3>
+<p><a href="https://www.luogu.com.cn/problem/U143687">提交处</a></p>
+<p><strong>solution</strong></p>
+<p>观察发现首先染一个连向叶子结点的点是最优的。</p>
+<p>考虑一下这个点，如果它连向了两个叶子，那么这个点选完先手必赢。</p>
+<p>如果它只连向一个叶子，后手一定会选这个叶子，那么就相当于在原图中删掉了这 两个点。</p>
+<p>那么我们的做法就出来了。 先染色度数为1的点，把相邻的点删掉。 如果在这一步删掉了已经删掉的点（注意不是标记的点），那么先手赢。</p>
+<p>如果最后也没有找到这样的条件，后手赢。</p>
+<p>这样的做法可以通过dfs来实现。</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN=100005;
+inline int read()
+{
+    int weight=0,symbol=1;
+    char in=getchar();
+    while(!isdigit(in))
+    {
+        if(in=='-') symbol=-1;
+        in=getchar();
+    }
+    while(isdigit(in))
+    {
+        weight=weight*10+in-'0';
+        in=getchar();
+    }
+    return symbol*weight;
+}
+inline void write(int x)
+{
+    int s[20],len=0;
+    if(x&lt;0) putchar('-'),x=-x;
+    do s[++len]=x%10,x/=10;while(x);
+    while(len) putchar('0'|s[len--]);
+}
+
+int T,n;
+int head[MAXN];
+struct EDGE
+{
+    int from,to;
+    int next;
+}edge[MAXN&lt;&lt;1];
+int edge_cnt;
+void add_edge(int fr,int to)
+{
+    edge[++edge_cnt].from=fr;
+    edge[edge_cnt].to=to;
+    edge[edge_cnt].next=head[fr];
+    head[fr]=edge_cnt;
+}
+
+bool flag;
+bool dfs(int x,int pre)
+{
+    if(flag) return 0;//剪枝
+    int res=0;
+    for(int i=head[x];i;i=edge[i].next)
+    {
+        int y=edge[i].to;
+        if(y==pre) continue;
+        res+=dfs(y,x);//从下面传递信息
+    }
+    if(res&gt;1) flag=1;//因为多于1个叶子结点肯定有解了
+    if(res==1) return 0;//相当于删点
+    else return 1;//无论是个死胡同还是个散开的树杈先手都能赢
+}
+
+void clearify()
+{
+    for(int i=1;i&lt;=n;i++)
+        head[i]=0;
+    for(int i=1;i&lt;=edge_cnt;i++)
+        edge[i].from=edge[i].to=edge[i].next=0;
+    edge_cnt=flag=0;
+}
+
+signed main()
+{
+    T=read();
+    while(T--)
+    {
+        n=read();
+        for(int i=2;i&lt;=n;i++)
+        {
+            int u=read(),v=read();
+            add_edge(u,v),add_edge(v,u);
+        }
+        
+        if(dfs(1,0)) flag=1;
+        puts(flag?&quot;Illyasviel&quot;:&quot;Miyu&quot;);
+        clearify();
+    }
+    return 0;
+}
+</code></pre>
+<h3 id="2网格">2.网格</h3>
+<p><strong>solution</strong></p>
+<p>垃圾构造。</p>
+<p>无解的情况：</p>
+<p>(1)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>t</mi><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">1&lt;t&lt;m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.65418em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>;</p>
+<p>(2)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">m=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>&lt;</mo><mi>s</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1&lt;s&lt;n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>;</p>
+<p>(3)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>s</mi><mo>+</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">n,m,s+t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>均为奇数。</p>
+<p>构造如下：</p>
+<p>(1)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mi>t</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s=t=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>:</p>
+<figure data-type="image" tabindex="1"><img src="https://lcy09.github.io/post-images/1606907201592.png" alt="" loading="lazy"></figure>
+<p>(2)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>均为奇数且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>&gt;</mo><mn>1</mn><mo separator="true">,</mo><mi>s</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">t&gt;1,s&lt;n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65418em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>:</p>
+<figure data-type="image" tabindex="2"><img src="https://lcy09.github.io/post-images/1606907239335.png" alt="" loading="lazy"></figure>
+<p>(3)<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mi>s</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">n-s+1,t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">t</span></span></span></span>均为偶数，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">t&lt;m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65418em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>:</p>
+<figure data-type="image" tabindex="3"><img src="https://lcy09.github.io/post-images/1606907252900.png" alt="" loading="lazy"></figure>
+<p>通过旋转和翻转可以处理其他情况。</p>
+<p>代码没写，咕了.</p>
+<h3 id="3有手就行">3.有手就行(???)</h3>
+<p><a href="https://www.luogu.com.cn/problem/U143718">提交处</a></p>
+<p><strong>solution</strong></p>
+<p>观察发现只需要把每个游戏拆成一个体积为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>,价值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和一个体积为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>,价值为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mi>i</mi></msub><mo>+</mo><msub><mi>b</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">a_i+b_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>的物品即可覆盖题目中给的条件，做贪心01背包即可。</p>
+<p>(结果考场上暴力由于开小数组写挂……)</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ull unsigned long long
+#define ll long long
+using namespace std;
+const int MAXN=5000005;
+const int MAXM=15000005;
+const int threshold=10000000;
+inline int read()
+{
+	int weight=0,symbol=1;
+	char in=getchar();
+	while(!isdigit(in))
+	{
+		if(in=='-') symbol=-1;
+		in=getchar();
+	}
+	while(isdigit(in))
+	{
+		weight=weight*10+in-'0';
+		in=getchar();
+	}
+	return symbol*weight;
+}
+inline void write(ll x)
+{
+	int s[20],len=0;
+	if(x&lt;0) putchar('-'),x=-x;
+	do s[++len]=x%10,x/=10;while(x);
+	while(len) putchar('0'|s[len--]);
+	putchar(10);
+}
+
+int n,m;
+ull k1,k2;
+ull Rand()
+{
+	ull k3=k1,k4=k2;
+	k1=k4;
+	k3^=(k3&lt;&lt;23);
+	k2=k3^k4^(k3&gt;&gt;17)^(k4&gt;&gt;26);
+	return k2+k4;
+}
+int val[3][MAXN];
+void gen(int n,ull _k1,ull _k2)
+{
+	k1=_k1,k2=_k2;
+	for(int i=1;i&lt;=n;i++)
+	{
+		val[1][i]=Rand()%threshold+1;
+		val[2][i]=Rand()%threshold+1;
+		val[2][i]+=val[1][i];
+	}
+}
+bool cmp(int x,int y) {return x&gt;y;}
+
+ll f[MAXM];
+int num[MAXM][3];
+ll ans;
+
+signed main()
+{
+	n=read(),m=read();
+	cin&gt;&gt;k1&gt;&gt;k2;
+	gen(n,k1,k2);
+	
+	sort(val[1]+1,val[1]+n+1,cmp);
+	sort(val[2]+1,val[2]+n+1,cmp);
+	for(int i=1;i&lt;=m;i++)
+		for(int j=1;j&lt;=min(2,i);j++)
+		{
+			if(num[i-j][j]==n)
+			{
+				if(f[i-j]&lt;f[i]) continue;
+				f[i]=f[i-j];
+				memcpy(num[i],num[i-j],sizeof(num[i-j]));
+				continue;
+			}
+			if(f[i-j]+val[j][num[i-j][j]+1]&lt;f[i]) continue;
+			f[i]=f[i-j]+val[j][num[i-j][j]+1];
+			memcpy(num[i],num[i-j],sizeof(num[i-j]));
+			num[i][j]++;
+		}
+	
+	for(int i=1;i&lt;=m;i++)
+		ans^=f[i];
+	
+	write(ans);
+	return 0;
+}
+</code></pre>
+<h3 id="4求余数">4.求余数</h3>
+<p><strong>solution</strong></p>
+<figure data-type="image" tabindex="4"><img src="https://lcy09.github.io/post-images/1606907266943.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://lcy09.github.io/post-images/1606907293855.png" alt="" loading="lazy"></figure>
+<p>代码先粘一份std.</p>
+<p><strong>code</strong></p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
+ 
+#define R register
+#define maxm 110
+#define maxn 1000010
+int pr[maxm], prcnt, mp[maxm], r[maxm];
+int f[26][16], g[2][26][16], aans[maxm][26];
+int pw[maxn], inp[maxn];
+bool vis[maxm], visans[maxn];
+const int mod = 1e9 + 7;
+inline bool cmp(R int a, R int b) {return mp[a] &lt; mp[b];}
+inline int qpow(R int base, R int power)
+{
+	R int ret = 1;
+	for (; power; power &gt;&gt;= 1, base = 1ll * base * base % mod)
+		power &amp; 1 ? ret = 1ll * ret * base % mod : 0;
+	return ret;
+}
+struct Q {int n, m;} qq[510];
+int main()
+{
+	R int T; scanf(&quot;%d&quot;, &amp;T);
+	for (R int i = 2; i &lt;= 100; ++i)
+	{
+		if (!vis[i]) pr[++prcnt] = mp[i] = i;
+		for (R int j = 1; j &lt;= prcnt &amp;&amp; i * pr[j] &lt;= 100; ++j)
+		{
+			vis[i * pr[j]] = 1;
+			mp[i * pr[j]] = mp[i];
+			if (i % pr[j] == 0) break;
+		}
+	}
+	R int maa = 0;
+	for (R int i = 1; i &lt;= T; ++i) scanf(&quot;%d%d&quot;, &amp;qq[i].n, &amp;qq[i].m), maa &lt; qq[i].n ? maa = qq[i].n : 0;
+	pw[0] = 1;
+	for (R int i = 1; i &lt;= maa; ++i) pw[i] = 1ll * pw[i - 1] * i % mod;
+	inp[maa] = qpow(pw[maa], mod - 2);
+	for (R int i = maa; i; --i) inp[i - 1] = 1ll * inp[i] * i % mod;
+ 
+	for (R int TT = 1; TT &lt;= T; ++TT)
+	{
+		R int n = qq[TT].n, m = qq[TT].m, tot = 0;
+		R int lim = m &lt; 25 ? m : 25;
+		if (!visans[m])
+		{
+		visans[m] = 1;
+		for (R int i = 2; i &lt;= m; ++i) r[i] = i;
+		std::sort(r + 2, r + m + 1, cmp);
+ 
+		memset(f, 0, sizeof (f));
+		memset(g, 0, sizeof (g));
+		g[0][0][0] = 1;
+		for (R int i = 2; i &lt;= m; ++i)
+		{
+			if (mp[r[i]] &lt; 10 || (mp[r[i]] != mp[r[i - 1]]))
+			{
+				tot ^= 1;
+				memset(f, 0, sizeof (f));
+				memset(g[tot], 0, sizeof (g[tot]));
+			}
+ 
+			R int tmp = r[i], tS = 0;
+			if (tmp % 2 == 0) tS |= 1;
+			if (tmp % 3 == 0) tS |= 2;
+			if (tmp % 5 == 0) tS |= 4;
+			if (tmp % 7 == 0) tS |= 8;
+			
+			R int pS = ~tS &amp; 15;
+
+			for (R int j = lim; j; --j)
+			{
+				R int *fij = f[j], *gij = g[tot ^ 1][j - 1];
+				for (R int S = pS; S; S = (S - 1) &amp; pS)
+					(fij[S | tS] += gij[S]) %= mod;
+				(fij[tS] += gij[0]) %= mod;
+			}
+ 
+			if (i == m || mp[r[i + 1]] &lt; 10 || mp[r[i + 1]] != mp[r[i]])
+			{
+				for (R int j = 0; j &lt;= lim; ++j)
+				{
+					R int *gij = g[tot][j], *gij1 = g[tot ^ 1][j], *fij = f[j];
+					for (R int S = 0; S &lt; 16; ++S)
+						gij[S] = (gij1[S] + fij[S]) % mod;
+				}
+			}
+		}
+		for (R int i = 0; i &lt;= lim; ++i) for (R int S = 0; S &lt; 16; ++S) (aans[m][i] += g[tot][i][S]) %= mod;
+		}
+		R int ans = 0;
+		for (R int i = 0; i &lt;= lim &amp;&amp; i &lt;= n; ++i)
+		{
+			R int Cp = 1ll * pw[n] * inp[n - i] % mod;
+			ans = (ans + 1ll * aans[m][i] * Cp) % mod;
+		}
+		printf(&quot;%d\n&quot;, ans);
+	}
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P6477 子序列问题 题解]]></title>
         <id>https://lcy09.github.io/post/p6477-solution/</id>
